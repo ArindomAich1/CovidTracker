@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" >
+  <title>Covid Tracker</title>
+  
+</head>
+<body style="background-color: rgba(57, 255, 47, 0.258); font-size: 150%;">
+  
+  <div style="text-align: center;">
+    <img src="logo.png" width="200px" alt="Covid Tracker">
+  </div>
+  
+  <div style="text-align: center; border-radius: 10px; background-color: rgba(57, 255, 84, 0.595); margin: 5px 5px; padding: 15px 0;">
+    <h2 >INDIA</h2>
+    <h3 ><p id="indiaData"></p></h3>
+  </div>
+
+  <div style="text-align: center; border-radius: 10px; background-color: rgba(57, 255, 84, 0.595); margin: 5px 5px; padding: 15px 0;" >
+    <form id="myForm">
+      <label for="state"><h2>Search by State/UT</h2></label>
+      <input type="text" id="state" placeholder="State/UT" style="height: 30px; width: 300px; border-radius: 10px;">
+      <input type="submit" value="search" style="height: 35px; background-color: rgb(228, 225, 225); border-radius: 10px;">
+    </form>
+    <h3><p id="display"></p></h3>
+  </div>
+
+  <script>
+    function totalDataCount(something) {
+      document.getElementById("indiaData").innerHTML = something;
+    }
+    
+    function myDisplayer(something) {
+      document.getElementById("display").innerHTML = something;
+    }
+
+    async function indiaCount(){
+        const result=  await fetch('https://api.rootnet.in/covid19-in/stats/latest');
+        const data= await result.json();
+        
+        let total="";
+        totalConfirmedCases=data['data']['summary']['total'];
+        totalDeathCount=data['data']['summary']['deaths'];
+        totalDischarged=data['data']['summary']['discharged'];
+        
+
+        total= "Confirmed cases: "+totalConfirmedCases+" <br> Recovered: "+totalDischarged+" <br> Deaths: "+totalDeathCount;
+        totalDataCount(total);
+        console.log(total);
+    }
+  
+    indiaCount();
+   
+    async function covidAPI(){
+        const result=  await fetch('https://api.rootnet.in/covid19-in/stats/latest');
+        const data= await result.json();
+        let str="";
+        console.log("initiated...");
+        for(let i=0;i<36;i++){
+            if(data['data']['regional'][i]['loc']==state)
+            {
+                deathCount= data['data']['regional'][i]['deaths'];
+                confirmedCases= data['data']['regional'][i]['totalConfirmed'];
+                discharged = data['data']['regional'][i]['discharged'];
+
+                str=state+"<br><br>Total cases: " + confirmedCases+ "<br>Discharged: "+ discharged + "<br>Deaths: "+ deathCount;
+                break;
+            }            
+        }
+
+        console.log(data['data']['regional'][3]['deaths']);
+        deathCount= data['data']['regional'][3]['deaths'];
+
+        myDisplayer(str);
+    }
+
+    let form= document.getElementById('myForm');
+    let state="";
+
+    form.addEventListener('submit', function(event){
+      event.preventDefault() //prevents autosubmit
+      state= document.getElementById('state').value;
+      covidAPI();
+    })
+  </script>
+
+</body>
+</html>
