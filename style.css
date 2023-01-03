@@ -1,0 +1,107 @@
+
+
+#indiaDataConfirmed{
+    background-color: rgb(234, 255, 48);
+    width: 300px;
+    height: 100px;
+    padding-top: 2em;
+    margin: 0 auto;
+    border-radius: 20px ;
+    border: solid 5px;
+}
+#indiaDataRecovered{
+    background-color: rgb(81, 255, 0);
+    width: 300px;
+    height: 100px;
+    padding-top: 2em;
+    margin: 20px auto;
+    border-radius: 20px ;
+    border: solid 5px;
+
+}
+#indiaDataDeath{
+    background-color: rgb(255, 61, 61);
+    width: 300px;
+    height: 100px;
+    padding-top: 2em;
+    margin: 20px auto;
+    border-radius: 20px ;
+    border: solid 5px;
+
+}
+
+#stateName{
+    background-color: rgb(255, 255, 255);
+    margin: auto 20%;
+    border-radius: 30px;
+}
+#stateConfirmedJS{
+    background-color: rgb(234, 255, 48);
+    width: 300px;
+    height: 100px;
+    padding-top: 2em;
+    margin: 0 auto;
+    border-radius: 20px ;
+    border: solid 5px;
+}
+#stateRecoveredJS{
+    background-color: rgb(81, 255, 0);
+    width: 300px;
+    height: 100px;
+    padding-top: 2em;
+    margin: 20px auto;
+    border-radius: 20px ;
+    border: solid 5px;
+
+}
+#stateDeathJS{
+    background-color: rgb(255, 61, 61);
+    width: 300px;
+    height: 100px;
+    padding-top: 2em;
+    margin: 20px auto;
+    border-radius: 20px ;
+    border: solid 5px;
+
+}
+
+
+@media screen and (min-width: 800px){
+    #indiaDataConfirmed{
+        position: absolute;
+        width: 25%;
+        margin-left: 6% ;
+    }
+    #indiaDataRecovered{
+        position: absolute;
+        width: 25%;
+        margin-top: 0;
+        margin-left: 37% ;
+        
+    }
+    #indiaDataDeath{
+        position: relative;
+        left: 64%;
+        width: 25%;
+        margin-top: 0;
+        margin-left: 6.25% ;
+        
+    }
+    #stateConfirmedJS{
+        position: absolute;
+        width: 25%;
+        margin-left: 6% ;
+    } 
+    #stateRecoveredJS{
+        position: absolute;
+        width: 25%;
+        margin-top: 0;
+        margin-left: 37% ;
+    } 
+    #stateDeathJS{
+        position: relative;
+        left: 64%;
+        width: 25%;
+        margin-left: 6.25% ;
+    }
+}

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content=""/>
   <link rel="icon" type="image/x-icon" href="favicon.ico" >
+  <link rel="stylesheet" href="style.css">
   <title>Covid Tracker</title>
   
 </head>
@@ -11,50 +13,84 @@
     <img src="logo.png" width="200px" alt="Covid Tracker">
   </div>
   
-  <div style="text-align: center; border-radius: 10px; background-color: rgba(57, 255, 84, 0.595); margin: 5px 5px; padding: 15px 0;">
-    <h2 >INDIA</h2>
-    <h3 ><p id="indiaData"></p></h3>
+  <div style="text-align: center; border-radius: 10px; background-color: rgba(57, 255, 222, 0.595); margin: 5px 5px; padding: 15px 0;">
+    <br>
+    <h2 style="margin: auto 20% ; border-radius: 30px ; background-color: rgb(255, 255, 255);">India</h2>
+    <br>
+    <p id="indiaDataConfirmed"></p>
+    <p id="indiaDataRecovered"></p>
+    <p id="indiaDataDeath"></p>
   </div>
 
-  <div style="text-align: center; border-radius: 10px; background-color: rgba(57, 255, 84, 0.595); margin: 5px 5px; padding: 15px 0;" >
+  <div style="text-align: center; border-radius: 10px; background-color: rgba(57, 255, 222, 0.595); margin: 5px 5px; padding: 15px 0;" >
     <form id="myForm">
-      <label for="state"><h2>Search by State/UT</h2></label>
+      <br>
+      <label for="state"><h2 style="margin: auto 20% ; border-radius: 30px ; background-color: rgb(255, 255, 255);">Search by State/UT</h2></label>
+      <br>
       <input type="text" id="state" placeholder="State/UT" style="height: 30px; width: 300px; border-radius: 10px;">
       <input type="submit" value="search" style="height: 35px; background-color: rgb(228, 225, 225); border-radius: 10px;">
     </form>
-    <h3><p id="display"></p></h3>
+    <h2><p id="stateName"></p></h2>
+    <p id="stateConfirmed"></p>
+    <p id="stateRecovered"></p>
+    <p id="stateDeath"></p>
   </div>
 
   <script>
-    function totalDataCount(something) {
-      document.getElementById("indiaData").innerHTML = something;
+    function indiaDataConfirmed(something) {
+      document.getElementById("indiaDataConfirmed").innerHTML = something;
+    }
+    function indiaDataRecovered(something) {
+      document.getElementById("indiaDataRecovered").innerHTML = something;
+    }
+    function indiaDataDeath(something) {
+      document.getElementById("indiaDataDeath").innerHTML = something;
     }
     
-    function myDisplayer(something) {
-      document.getElementById("display").innerHTML = something;
+    function stateDataName(something) {
+      document.getElementById("stateName").innerHTML = something;
+    }
+    function stateDataConfiremed(something) {
+      document.getElementById("stateConfirmed").innerHTML = something;
+    }
+    function stateDataRecovered(something) {
+      document.getElementById("stateRecovered").innerHTML = something;
+    }
+    function stateDataDeath(something) {
+      document.getElementById("stateDeath").innerHTML = something;
     }
 
     async function indiaCount(){
         const result=  await fetch('https://api.rootnet.in/covid19-in/stats/latest');
         const data= await result.json();
         
-        let total="";
+        let indiaConfirmed="";
+        let indiaRecovered="";
+        let indiaDeath="";
         totalConfirmedCases=data['data']['summary']['total'];
         totalDeathCount=data['data']['summary']['deaths'];
         totalDischarged=data['data']['summary']['discharged'];
         
 
-        total= "Confirmed cases: "+totalConfirmedCases+" <br> Recovered: "+totalDischarged+" <br> Deaths: "+totalDeathCount;
-        totalDataCount(total);
-        console.log(total);
+        indiaConfirmed= "Confirmed cases:<br>"+totalConfirmedCases;
+        indiaRecovered="Recovered:<br>"+totalDischarged;
+        indiaDeath="Deaths:<br>"+totalDeathCount;
+        indiaDataConfirmed(indiaConfirmed);
+        indiaDataRecovered(indiaRecovered);
+        indiaDataDeath(indiaDeath);
+        // console.log(total);
     }
   
     indiaCount();
    
+    //covidAPI gets the data of each state/UT 
     async function covidAPI(){
         const result=  await fetch('https://api.rootnet.in/covid19-in/stats/latest');
         const data= await result.json();
-        let str="";
+        let stateName="";
+        let stateConfirmed="";
+        let statedRecovered="";
+        let stateDeath="";
         console.log("initiated...");
         for(let i=0;i<36;i++){
             if(data['data']['regional'][i]['loc']==state)
@@ -63,15 +99,20 @@
                 confirmedCases= data['data']['regional'][i]['totalConfirmed'];
                 discharged = data['data']['regional'][i]['discharged'];
 
-                str=state+"<br><br>Total cases: " + confirmedCases+ "<br>Discharged: "+ discharged + "<br>Deaths: "+ deathCount;
+                stateName=state;
+                stateConfirmed='<p id="stateConfirmedJS"stateData">Confirmed cases:<br>'+confirmedCases+'</p>';
+                statedRecovered='<p id="stateRecoveredJS" >Recovered:<br>'+ discharged+'</p>';
+                stateDeath='<p id="stateDeathJS">Deaths:<br>'+ deathCount+'</p>';
                 break;
             }            
         }
+        stateDataName(stateName);
+        stateDataConfiremed(stateConfirmed);
+        stateDataRecovered(statedRecovered);
+        stateDataDeath(stateDeath);
+        
 
-        console.log(data['data']['regional'][3]['deaths']);
-        deathCount= data['data']['regional'][3]['deaths'];
-
-        myDisplayer(str);
+        
     }
 
     let form= document.getElementById('myForm');
