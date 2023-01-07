@@ -1,5 +1,3 @@
-
-
 #indiaDataConfirmed{
     background-color: rgb(234, 255, 48);
     width: 300px;
@@ -28,6 +26,11 @@
     border-radius: 20px ;
     border: solid 5px;
 
+}
+
+#indiaDataConfirmed:hover , #indiaDataRecovered:hover , #indiaDataDeath:hover, #stateConfirmedJS:hover , #stateRecoveredJS:hover, #stateDeathJS:hover{
+    transition: 0.5s;
+    transform: scale(1.1) ;
 }
 
 #stateName{
