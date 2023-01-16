@@ -23,7 +23,7 @@ async function indiaCount(){
     // console.log(total);
 }
 
-// indiaCount();
+indiaCount();
 
 //covidAPI gets the data of each state/UT 
 async function covidAPI(){
